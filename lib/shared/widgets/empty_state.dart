@@ -25,7 +25,7 @@ class EmptyState extends StatelessWidget {
             const SizedBox(height: 16),
             Text(title, style: theme.textTheme.titleMedium),
 
-            if (description != null) ...[
+            ...[
               const SizedBox(height: 8),
               Text(
                 description,

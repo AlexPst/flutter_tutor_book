@@ -8,7 +8,6 @@ import 'package:flutter_tutor_book/features/today/today_screen.dart';
 import 'package:flutter_tutor_book/features/week/week_screen.dart';
 import 'package:flutter_tutor_book/shared/widgets/app_scaffold.dart';
 import 'package:go_router/go_router.dart';
-import 'package:path/path.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
