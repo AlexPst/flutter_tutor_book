@@ -3,6 +3,7 @@ import 'package:flutter_tutor_book/core/constants.dart';
 import 'package:flutter_tutor_book/core/theme/app_theme.dart';
 import 'package:flutter_tutor_book/features/finance/finance_screen.dart';
 import 'package:flutter_tutor_book/features/settings/settings_screen.dart';
+import 'package:flutter_tutor_book/features/students/student_card_screen.dart';
 import 'package:flutter_tutor_book/features/students/students_screen.dart';
 import 'package:flutter_tutor_book/features/today/today_screen.dart';
 import 'package:flutter_tutor_book/features/week/week_screen.dart';
@@ -48,6 +49,17 @@ final _router = GoRouter(
       parentNavigatorKey: _rootNavigatorKey,
       path: "/settings",
       builder: (_, _) => const SettingsScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/students/:id',
+      builder: (_, state) {
+        final id = int.tryParse(state.pathParameters['id'] ?? '');
+        if (id == null) {
+          return const Scaffold(body: Center(child: Text('Некорректный id')));
+        }
+        return StudentCardScreen(studentId: id);
+      },
     ),
   ],
 );

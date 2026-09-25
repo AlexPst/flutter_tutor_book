@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/utils/money_utils.dart';
 import '../../../data/database/app_database.dart';
@@ -20,7 +21,9 @@ class StudentTile extends StatelessWidget {
     final subtitle = parts.join(' . ');
 
     return ListTile(
-      onTap: onTap,
+      onTap: () {
+        context.push('/students/${student.id}');
+      },
       leading: CircleAvatar(
         backgroundColor: theme.colorScheme.secondaryContainer,
         child: Text(

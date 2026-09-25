@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 
 import '../../core/utils/money_utils.dart';
 import '../../data/repositories/lesson_repository.dart';
@@ -90,8 +89,18 @@ class StudentCardScreen extends ConsumerWidget {
                         icon: Icons.event_outlined,
                         title: 'Занятий пока нет',
                         description: 'Нажми «Занятие», чтобы добавить',
-                        ),)
+                      ),
+                    );
                   }
+                  return Column(
+                    children: [
+                      for (final l in lessons)
+                        LessonTile(
+                          lesson: l,
+                          onTap: () => _pickStatus(context, ref, l.id),
+                        ),
+                    ],
+                  );
                 },
               ),
             ],
@@ -99,6 +108,37 @@ class StudentCardScreen extends ConsumerWidget {
         );
       },
     );
+  }
+
+  Future<void> _pickStatus(
+    BuildContext context,
+    WidgetRef ref,
+    int lessonId,
+  ) async {
+    const options = [
+      ('planned', 'Запланировано'),
+      ('done', 'Проведено'),
+      ('cancelled', 'Отменено'),
+      ('no_show', 'Не пришёл'),
+    ];
+    final chosen = await showModalBottomSheet<String>(
+      context: context,
+      builder: (_) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            for (final (value, label) in options)
+              ListTile(
+                title: Text(label),
+                onTap: () => Navigator.of(context).pop(value),
+              ),
+          ],
+        ),
+      ),
+    );
+    if (chosen != null) {
+      await ref.read(lessonRepositoryProvider).updateStatus(lessonId, chosen);
+    }
   }
 }
 
