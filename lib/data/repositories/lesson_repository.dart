@@ -47,8 +47,37 @@ class LessonRepository {
   Future<void> delete(int id) {
     return (_db.delete(_db.lessons)..where((t) => t.id.equals(id))).go();
   }
+
+  Stream<List<LessonWithStudent>> watchForRange(DateTime from, DateTime to) {
+    final query =
+        _db.select(_db.lessons).join([
+            innerJoin(
+              _db.students,
+              _db.students.id.equalsExp(_db.lessons.studentId),
+            ),
+          ])
+          ..where(_db.lessons.startAt.isBiggerOrEqualValue(from))
+          ..where(_db.lessons.startAt.isSmallerThanValue(to))
+          ..where(_db.students.archived.equals(false))
+          ..orderBy([OrderingTerm.asc(_db.lessons.startAt)]);
+    return query.watch().map((rows) {
+      return rows.map((row) {
+        return LessonWithStudent(
+          lesson: row.readTable(_db.lessons),
+          student: row.readTable(_db.students),
+        );
+      }).toList();
+    });
+  }
 }
 
 final lessonRepositoryProvider = Provider<LessonRepository>((ref) {
   return LessonRepository(ref.watch(appDatabaseProvider));
 });
+
+class LessonWithStudent {
+  const LessonWithStudent({required this.lesson, required this.student});
+
+  final Lesson lesson;
+  final Student student;
+}
