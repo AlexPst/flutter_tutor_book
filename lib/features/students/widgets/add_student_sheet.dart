@@ -80,6 +80,9 @@ class _AddStudentSheetState extends ConsumerState<AddStudentSheet> {
             Text('Новый ученик', style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 16),
             TextFormField(
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).colorScheme.outline,
+              ),
               controller: _nameCtrl,
               autofocus: true,
               textCapitalization: TextCapitalization.words,
@@ -95,6 +98,9 @@ class _AddStudentSheetState extends ConsumerState<AddStudentSheet> {
               controller: _subjectCtrl,
               textInputAction: TextInputAction.next,
               decoration: const InputDecoration(labelText: 'Предмет'),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).colorScheme.outline,
+              ),
             ),
             const SizedBox(height: 12),
             TextFormField(
@@ -102,6 +108,9 @@ class _AddStudentSheetState extends ConsumerState<AddStudentSheet> {
               keyboardType: TextInputType.phone,
               textInputAction: TextInputAction.next,
               decoration: const InputDecoration(labelText: 'Телефон'),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).colorScheme.outline,
+              ),
             ),
             const SizedBox(height: 12),
             TextFormField(
@@ -113,6 +122,9 @@ class _AddStudentSheetState extends ConsumerState<AddStudentSheet> {
                 labelText: 'Ставка за занятие, ₽',
               ),
               onFieldSubmitted: (_) => _save(),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).colorScheme.outline,
+              ),
             ),
             const SizedBox(height: 20),
             FilledButton(

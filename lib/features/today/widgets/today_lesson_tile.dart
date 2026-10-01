@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tutor_book/core/utils/money_utils.dart';
 import 'package:intl/intl.dart';
 
-import '../../../core/utils/money_utils.dart';
 import '../../../data/repositories/lesson_repository.dart';
 
 class TodayLessonTile extends StatelessWidget {
@@ -86,9 +86,40 @@ class TodayLessonTile extends StatelessWidget {
                       style: theme.textTheme.titleMedium,
                       overflow: TextOverflow.ellipsis,
                     ),
+                    if (student.subject != null && student.subject!.isNotEmpty)
+                      Text(
+                        student.subject!,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: theme.colorScheme.outline,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                   ],
                 ),
               ),
+              if (lesson.price > 0)
+                Padding(
+                  padding: const EdgeInsets.only(right: 4),
+                  child: Text(
+                    formatKopecks(lesson.price),
+                    style: theme.textTheme.bodySmall,
+                  ),
+                ),
+              if (isPlanned) ...[
+                IconButton(
+                  tooltip: 'Проведено',
+                  icon: const Icon(Icons.check_circle_outline),
+                  color: theme.colorScheme.primary,
+                  onPressed: onCancel,
+                ),
+              ] else
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: Icon(
+                    Icons.chevron_right,
+                    color: theme.colorScheme.outline,
+                  ),
+                ),
             ],
           ),
         ),
