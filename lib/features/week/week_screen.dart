@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tutor_book/data/repositories/lesson_repository.dart';
 import 'package:flutter_tutor_book/features/week/week_providers.dart';
 import 'package:flutter_tutor_book/features/week/widgets/week_day_section.dart';
-import 'package:flutter_tutor_book/shared/widgets/empty_state.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 

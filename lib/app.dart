@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_tutor_book/core/constants.dart';
 import 'package:flutter_tutor_book/core/theme/app_theme.dart';
 import 'package:flutter_tutor_book/features/finance/finance_screen.dart';
@@ -14,7 +15,7 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
 final _router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: "/today",
+  initialLocation: '/today',
   routes: [
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) =>
@@ -22,33 +23,33 @@ final _router = GoRouter(
       branches: [
         StatefulShellBranch(
           routes: [
-            GoRoute(path: "/today", builder: (_, _) => const TodayScreen()),
+            GoRoute(path: '/today', builder: (_, __) => const TodayScreen()),
           ],
         ),
         StatefulShellBranch(
           routes: [
-            GoRoute(path: "/week", builder: (_, _) => const WeekScreen()),
+            GoRoute(path: '/week', builder: (_, __) => const WeekScreen()),
           ],
         ),
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: "/students",
+              path: '/students',
               builder: (_, _) => const StudentsScreen(),
             ),
           ],
         ),
         StatefulShellBranch(
           routes: [
-            GoRoute(path: "/finance", builder: (_, _) => const FinanceScreen()),
+            GoRoute(path: '/finance', builder: (_, _) => const FinanceScreen()),
           ],
         ),
       ],
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
-      path: "/settings",
-      builder: (_, _) => const SettingsScreen(),
+      path: '/settings',
+      builder: (_, __) => const SettingsScreen(),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
@@ -68,13 +69,20 @@ class TutorBookApp extends StatelessWidget {
   const TutorBookApp({super.key});
 
   @override
-  Widget build(BuildContext contex) {
+  Widget build(BuildContext context) {
     return MaterialApp.router(
       title: AppConstants.appName,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light(),
       darkTheme: AppTheme.dark(),
       routerConfig: _router,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [Locale('ru'), Locale('en')],
+      locale: const Locale('ru'),
     );
   }
 }

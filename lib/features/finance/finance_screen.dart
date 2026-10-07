@@ -34,7 +34,10 @@ class FinanceScreen extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
             child: Text(
               'Баланс учеников',
-              style: Theme.of(context).textTheme.titleMedium,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
           balanceAsync.when(

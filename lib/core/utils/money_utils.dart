@@ -5,9 +5,9 @@ int parseRublesToKopecks(String input) {
   return (value * 100).round();
 }
 
-String formatKopecks(int kopekcs) {
+String formatKopecks(int kopekcs, {String symbol = '₽'}) {
   final rub = kopekcs ~/ 100;
   final rest = kopekcs % 100;
-  if (rest == 0) return '$rub ₽';
-  return '$rub,${rest.toString().padLeft(2, '0')} ₽';
+  if (rest == 0) return '$rub $symbol';
+  return '$rub,${rest.toString().padLeft(2, '0')} $symbol';
 }
